@@ -269,7 +269,7 @@ Explainable: Each phase (detection, merging, scoring) produces traceable outputs
 Lightweight: No GPU or deep model dependencies.
 Flexible: Accepts any .mp4 or .avi file, and optionally evaluates accuracy.
 
-## Testing the API via cURL / Api Usage
+## Testing the API via CURL / Api Usage
 Endpoint
 POST /annotate
 # Case 1: Without Ground Truth File
