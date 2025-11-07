@@ -103,7 +103,7 @@ The posture detection module estimates whether a person’s upper body is straig
 Instead of relying on a deep neural network, it uses Mediapipe’s Pose landmark model and interprets posture using simple normalized ratios.
 This makes it fast, explainable, and suitable for lightweight local inference.
 
-## Core Idea
+# Core Idea
 
 The detector measures the vertical distance between the nose and shoulder midpoint, normalized by the shoulder width.
 This creates a dimensionless ratio that describes how upright the upper body is:
@@ -308,9 +308,9 @@ PostureDetector –>  detects upper-body posture and computes geometric ratios u
 Both detectors run asynchronously and independently using Python’s asyncio.gather() method.
 Internally, each detector processes all video frames using OpenCV and stores frame-level results in memory (frame_logs), which are later dumped as separate JSON files:
 
-# eye_state_output.json
+ eye_state_output.json
 
-# posture_output.json
+ posture_output.json
 
 3. Frame-Level Merging of Results
 
@@ -342,7 +342,7 @@ Each detection task is isolated and failure-tolerant, meaning if one module fail
 The linear-time merging process ensures near real-time behavior for short videos and smooth scaling for longer inputs.
 This architecture supports easy future extension (e.g., emotion detection or gesture recognition modules) with minimal restructuring.
 
-# Visualization Testers
+## Visualization Testers
 The project also includes tester scripts to visualize landmarks, plot graphs (e.g., EAR over time), and debug posture ratios.
 These were built mainly for research and internal validation, helping verify how smoothing, calibration, and ratios behave visually.
 
@@ -393,8 +393,8 @@ From empirical tests:
 Using model_complexity = 1 (fast mode): 145 frames took about 12 seconds, giving 12 FPS.
 Using model_complexity = 2 (accurate mode): 145 frames took about 38 seconds, giving 3.8 FPS.
 Extrapolating for a 10-minute video (18,000 frames):
-# Complexity 1: 25–30 minutes
-# Complexity 2: 75–80 minutes
+ Complexity 1: 25–30 minutes
+ Complexity 2: 75–80 minutes
 
 If we consider the total development and compute cost:
 Cost per minute of annotated video = (Total Development + Compute Cost) / Total Minutes Processed
@@ -409,14 +409,14 @@ Local (CPU-only, Intel i7 / 16GB RAM): Takes around 25–80 minutes per 10-minut
 Cloud (CPU VM, 2 vCPUs / 8GB RAM): Takes about 20–75 minutes, costing roughly $0.25 – $0.95 per run depending on provider rates.
 Cloud (GPU VM, NVIDIA T4 / 16GB RAM): Takes 5–12 minutes, costing approximately $0.80 – $1.20 per run.
 
-# F1-Score Evaluation
+## F1-Score Evaluation
 
 I implemented an independent script (f1_score_evaluator.py) that compares predicted outputs with provided ground-truth JSON files.
 It computes F1-scores for both Eye State and Posture based on frame-level matches.
 I chose not to pre-compute or report any fixed F1-scores because testing on a single local video would bias the results heavily.
 The evaluator is included so the scores can be fairly computed during the official demo with the real ground-truth dataset.
 
-# Local Setup
+## Local Setup
 git clone https://github.com/<your_username>/WAW_Project.git
 cd WAW_Project
 python -m venv .venv
